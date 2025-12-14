@@ -21,6 +21,7 @@ interface SerenityEchoDB extends DBSchema {
             id: string;
             name: string;
             layers: MixerLayer[];
+            masterVolume: number;
             createdAt: number;
         };
     };
@@ -231,7 +232,7 @@ export const getCategories = async () => {
     return await db.getAll('categories');
 };
 
-export const savePreset = async (name: string, layers: MixerLayer[]) => {
+export const savePreset = async (name: string, layers: MixerLayer[], masterVolume: number) => {
     try {
         const db = await initDB();
         const id = `preset-${Date.now()}`;
@@ -250,17 +251,18 @@ export const savePreset = async (name: string, layers: MixerLayer[]) => {
             loop: layer.loop ?? true
         }));
 
-        console.log('[DB-SAVE-PRESET] Saving:', { id, name, layers: cleanLayers });
+        console.log('[DB-SAVE-PRESET] Saving:', { id, name, layers: cleanLayers, masterVolume });
 
         await db.put('presets', {
             id,
             name,
             layers: cleanLayers,
+            masterVolume,
             createdAt: Date.now(),
         });
 
         console.log('[DB-SAVE-PRESET] Success!');
-        return { id, name, layers: cleanLayers };
+        return { id, name, layers: cleanLayers, masterVolume };
     } catch (error) {
         console.error('[DB-SAVE-PRESET] Failed:', error);
         throw error;
@@ -269,7 +271,11 @@ export const savePreset = async (name: string, layers: MixerLayer[]) => {
 
 export const getPresets = async () => {
     const db = await initDB();
-    return await db.getAll('presets');
+    const presets = await db.getAll('presets');
+    return presets.map(p => ({
+        ...p,
+        masterVolume: p.masterVolume ?? 1 // Default to 1 (100%) if missing
+    }));
 };
 
 export const deletePreset = async (id: string) => {

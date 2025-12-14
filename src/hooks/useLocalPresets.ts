@@ -28,7 +28,7 @@ export const useLocalPresets = () => {
     const savePreset = useCallback(async (name: string, layers: MixerLayer[], masterVolume: number) => {
         try {
             // Save to DB
-            const savedPreset = await dbSavePreset(name, layers);
+            const savedPreset = await dbSavePreset(name, layers, masterVolume);
 
             // Update local state with the returned preset (which has the ID)
             const newPreset: Preset = {
