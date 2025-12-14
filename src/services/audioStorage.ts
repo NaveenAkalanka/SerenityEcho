@@ -9,6 +9,7 @@ interface SerenityEchoDB extends DBSchema {
             id: string;
             name: string;
             category: string;
+            categoryId: string;
             blob: Blob;
             createdAt: number;
         };

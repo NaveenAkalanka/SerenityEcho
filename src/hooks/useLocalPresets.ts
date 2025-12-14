@@ -5,7 +5,6 @@ import { getPresets, savePreset as dbSavePreset, deletePreset as dbDeletePreset,
 
 export const useLocalPresets = () => {
     const [presets, setPresets] = useState<Preset[]>([]);
-    const [isInitialized, setIsInitialized] = useState(false);
 
     // Load presets from IndexedDB on mount
     useEffect(() => {
@@ -19,7 +18,7 @@ export const useLocalPresets = () => {
             } catch (error) {
                 console.error('Error loading presets from DB:', error);
             } finally {
-                setIsInitialized(true);
+                // Done
             }
         };
         loadPresets();
@@ -36,11 +35,7 @@ export const useLocalPresets = () => {
                 id: savedPreset.id,
                 name: savedPreset.name,
                 layers: savedPreset.layers,
-                masterVolume, // Note: masterVolume is currently passed but not fully stored in DB schema in previous steps? 
-                // Wait, checking audioStorage.savePreset signature... it accepts (name, layers). 
-                // MasterVolume seems missing from DB schema/save function in audioStorage.
-                // We should probably update audioStorage to accept masterVolume too, 
-                // but for now let's ensure we at least store the structure correctly.
+                masterVolume,
                 createdAt: Date.now()
             };
 
