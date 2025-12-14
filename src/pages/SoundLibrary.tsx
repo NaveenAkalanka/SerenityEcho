@@ -275,8 +275,8 @@ const SoundLibrary: React.FC = () => {
                                                         >
                                                             <div className="flex justify-between items-start mb-2">
                                                                 <span className="text-2xl">{sound.icon || '🎵'}</span>
-                                                                {/* Delete button for custom sounds */}
-                                                                {!sound.id.startsWith('default-') && (
+                                                                {/* Delete button for custom sounds only */}
+                                                                {!SOUND_LIBRARY.some(s => s.id === sound.id) && (
                                                                     <button
                                                                         onClick={(e) => handleDeleteSound(sound.id, e)}
                                                                         className="text-gray-600 hover:text-red-400"
