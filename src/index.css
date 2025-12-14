@@ -1,0 +1,1057 @@
+@import "tailwindcss";
+
+/* Scroll Snap - Smooth section-to-section scrolling */
+html,
+body {
+  height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  /* Prevent horizontal scroll, allow vertical */
+}
+
+section {
+  position: relative;
+  width: 100%;
+}
+
+.snap-scroll-container {
+  overflow-y: scroll;
+  scroll-behavior: auto;
+  /* Let Lenis handle smoothing */
+  overscroll-behavior-y: contain;
+}
+
+/* Custom Scrollbar - Hidden for Immersive Experience */
+html::-webkit-scrollbar,
+.snap-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Firefox Scrollbar */
+html,
+.snap-scroll-container {
+  scrollbar-width: none;
+}
+
+/* Custom Styled Scrollbar */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(63, 209, 200, 0.3) rgba(255, 255, 255, 0.05);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  display: block;
+  /* Force display if hidden elsewhere */
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(63, 209, 200, 0.3);
+  /* Accent color low opacity */
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(63, 209, 200, 0.6);
+  /* Accent color high opacity */
+}
+
+@keyframes bounce-slow {
+
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: translateY(10px);
+    opacity: 1;
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 2s infinite ease-in-out;
+}
+
+:root {
+  --color-navy-dark: #0C1C2C;
+  --color-navy-card: #1B2E40;
+  --color-accent: #3FD1C8;
+  --color-accent-hover: #35B8B0;
+
+  /* Typography - Calm & Meditative Font Theme */
+  --font-heading: 'Nunito', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-accent: 'Quicksand', sans-serif;
+}
+
+body {
+  background-color: #0a0510;
+  color: white;
+  font-family: var(--font-body);
+  font-weight: 300;
+  /* Inter Light */
+  letter-spacing: 0.02em;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Utility Classes */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 200;
+  /* Nunito ExtraLight for titles */
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+}
+
+h2,
+h3 {
+  font-weight: 300;
+  /* Nunito Light for subheadings */
+}
+
+
+.font-accent {
+  font-family: var(--font-accent);
+}
+
+/* Custom Backdrop Blur for Browser Compatibility */
+.backdrop-blur-custom {
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+
+
+@layer utilities {
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.03);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .animate-delay-1000 {
+    animation-delay: 1s;
+  }
+
+  .mixer-layer-sortable {
+    transform: var(--sortable-transform);
+    transition: var(--sortable-transition);
+  }
+
+  /* Floating Navbar - Purple Theme */
+  .bg-purple-navbar {
+    background: rgba(80, 60, 140, 0.25);
+  }
+
+  .bg-purple-navbar-scrolled {
+    background: rgba(80, 60, 140, 0.35);
+  }
+
+  .bg-purple-logo {
+    background: rgba(100, 80, 160, 0.2);
+  }
+
+  .bg-purple-logo-hover {
+    background: rgba(100, 80, 160, 0.3);
+  }
+
+  .text-purple-100 {
+    color: rgba(230, 220, 255, 0.8);
+  }
+
+  .text-purple-200 {
+    color: rgba(210, 195, 255, 0.9);
+  }
+
+  /* Landing Page Cards */
+  .bg-purple-card {
+    background: rgba(100, 80, 160, 0.15);
+  }
+
+  .bg-purple-card-light {
+    background: rgba(100, 80, 160, 0.1);
+  }
+}
+
+/* Landing Page Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Atmospheric Animations */
+
+/* Rain Animation */
+.rain-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.rain-drop {
+  position: absolute;
+  top: -20px;
+  width: 2px;
+  height: 15px;
+  background: linear-gradient(to bottom, rgba(63, 209, 200, 0.3), rgba(63, 209, 200, 0));
+  animation: rain-fall 1s linear infinite;
+}
+
+@keyframes rain-fall {
+  to {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+/* Vertical SVG Waves on Sides */
+/* Organic Wave Animations */
+.organic-float-1 {
+  animation: organic-float 20s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.organic-float-2 {
+  animation: organic-sway 18s ease-in-out infinite reverse;
+  transform-origin: top center;
+}
+
+.organic-float-3 {
+  animation: organic-pulse 15s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+@keyframes organic-float {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+
+  25% {
+    transform: translateY(-40px) rotate(3deg) scale(1.1);
+  }
+
+  50% {
+    transform: translateY(-10px) rotate(-2deg) scale(1.05);
+  }
+
+  75% {
+    transform: translateY(30px) rotate(1deg) scale(0.95);
+  }
+}
+
+@keyframes organic-sway {
+
+  0%,
+  100% {
+    transform: translateX(0) translateY(0) scale(1) skewX(0deg);
+  }
+
+  33% {
+    transform: translateX(30px) translateY(-30px) scale(1.15) skewX(2deg);
+  }
+
+  66% {
+    transform: translateX(-20px) translateY(10px) scale(0.95) skewX(-1deg);
+  }
+}
+
+@keyframes organic-pulse {
+
+  0%,
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scale(1.25) translateY(-25px);
+    opacity: 0.8;
+  }
+}
+
+/* Wind particles */
+.wind-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.wind-particle {
+  position: absolute;
+  left: -30px;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.25) 50%, transparent 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+  animation: wind-blow 8s linear infinite;
+  opacity: 0.4;
+}
+
+@keyframes wind-blow {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.4;
+  }
+
+  90% {
+    opacity: 0.4;
+  }
+
+  100% {
+    transform: translateX(calc(100vw + 30px));
+    opacity: 0;
+  }
+}
+
+/* Ocean Bubbles Animation */
+.ocean-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ocean-bubble {
+  position: absolute;
+  bottom: -30px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(63, 209, 200, 0.3), rgba(63, 209, 200, 0.1));
+  border: 1px solid rgba(63, 209, 200, 0.2);
+  animation: bubble-rise 5s ease-in infinite;
+}
+
+@keyframes bubble-rise {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.6;
+  }
+
+  90% {
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: translateY(-100vh) translateX(20px);
+    opacity: 0;
+  }
+}
+
+/* Water Drop Ripples */
+.water-ripples-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.water-ripple {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border: 2px solid rgba(63, 209, 200, 0.4);
+  border-radius: 50%;
+  animation: ripple-expand 4s ease-out infinite;
+}
+
+@keyframes ripple-expand {
+  0% {
+    width: 10px;
+    height: 10px;
+    opacity: 0.8;
+    border-width: 3px;
+  }
+
+  50% {
+    opacity: 0.4;
+    border-width: 2px;
+  }
+
+  100% {
+    width: 120px;
+    height: 120px;
+    opacity: 0;
+    border-width: 1px;
+  }
+}
+
+/* Pulsing Constellation Effect */
+.constellation-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.constellation-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.constellation-line {
+  stroke: rgba(186, 85, 211, 0.3);
+  stroke-width: 1;
+  fill: none;
+  animation: line-pulse 4s ease-in-out infinite;
+}
+
+.constellation-star {
+  fill: rgba(218, 112, 214, 0.8);
+  filter: drop-shadow(0 0 4px rgba(218, 112, 214, 0.6));
+}
+
+.star-pulse-1 {
+  animation: star-glow 3s ease-in-out infinite;
+}
+
+.star-pulse-2 {
+  animation: star-glow 3s ease-in-out infinite;
+  animation-delay: -1s;
+}
+
+.star-pulse-3 {
+  animation: star-glow 3s ease-in-out infinite;
+  animation-delay: -2s;
+}
+
+@keyframes line-pulse {
+
+  0%,
+  100% {
+    stroke: rgba(186, 85, 211, 0.2);
+    stroke-width: 0.5;
+  }
+
+  50% {
+    stroke: rgba(186, 85, 211, 0.5);
+    stroke-width: 1.5;
+  }
+}
+
+@keyframes star-glow {
+
+  0%,
+  100% {
+    fill: rgba(218, 112, 214, 0.6);
+    filter: drop-shadow(0 0 3px rgba(218, 112, 214, 0.4));
+    transform: scale(1);
+  }
+
+  50% {
+    fill: rgba(238, 130, 238, 1);
+    filter: drop-shadow(0 0 8px rgba(238, 130, 238, 0.9));
+    transform: scale(1.3);
+  }
+}
+
+/* Dynamic line groups that fade in/out */
+.constellation-group-1 {
+  animation: line-group-fade-1 12s ease-in-out infinite;
+}
+
+.constellation-group-2 {
+  animation: line-group-fade-2 12s ease-in-out infinite;
+}
+
+.constellation-group-3 {
+  animation: line-group-fade-3 12s ease-in-out infinite;
+}
+
+@keyframes line-group-fade-1 {
+
+  0%,
+  25% {
+    opacity: 1;
+  }
+
+  30%,
+  70% {
+    opacity: 0;
+  }
+
+  75%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes line-group-fade-2 {
+
+  0%,
+  15% {
+    opacity: 0;
+  }
+
+  20%,
+  45% {
+    opacity: 1;
+  }
+
+  50%,
+  85% {
+    opacity: 0;
+  }
+
+  90%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes line-group-fade-3 {
+
+  0%,
+  40% {
+    opacity: 0;
+  }
+
+  45%,
+  65% {
+    opacity: 1;
+  }
+
+  70%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Interactive Particle Trail - Water Ripples */
+.particle-trail-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.trail-particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: ripple-trail-expand 3.5s ease-out forwards;
+  pointer-events: none;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+@keyframes ripple-trail-expand {
+  0% {
+    width: 8px;
+    height: 8px;
+    opacity: 0.6;
+    border-width: 2px;
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  50% {
+    opacity: 0.3;
+    border-width: 1.5px;
+    border-color: rgba(255, 255, 255, 0.35);
+  }
+
+  100% {
+    width: var(--ripple-size, 90px);
+    height: var(--ripple-size, 90px);
+    opacity: 0;
+    border-width: 0.5px;
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+}
+
+/* Infinite Sliding Carousel */
+.carousel-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 20px 0;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 24px;
+  animation: carousel-slide 60s linear infinite;
+  width: fit-content;
+}
+
+.carousel-card {
+  min-width: 280px;
+  flex-shrink: 0;
+}
+
+@keyframes carousel-slide {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(calc(-280px * 12 - 24px * 12));
+  }
+}
+
+/* Pause animation on hover */
+.carousel-track:hover {
+  animation-play-state: paused;
+}
+
+/* Emoji breathing animation on hover */
+.carousel-card:hover .text-7xl {
+  animation: emoji-breathe 1.5s ease-in-out infinite;
+}
+
+@keyframes emoji-breathe {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+/* Mobile Carousel Animation */
+.carousel-track-mobile {
+  display: flex;
+  gap: 16px;
+  animation: carousel-slide-mobile 60s linear infinite;
+  width: fit-content;
+}
+
+.carousel-card-mobile {
+  min-width: 160px;
+  flex-shrink: 0;
+}
+
+@keyframes carousel-slide-mobile {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    /* 160px width + 16px gap * 12 items */
+    transform: translateX(calc(-176px * 12));
+  }
+}
+
+.carousel-track-mobile-reverse {
+  display: flex;
+  gap: 16px;
+  animation: carousel-slide-mobile-reverse 35s linear infinite;
+  /* Slightly slower/different speed */
+  width: fit-content;
+}
+
+@keyframes carousel-slide-mobile-reverse {
+  0% {
+    transform: translateX(calc(-176px * 12));
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+
+@keyframes wave {
+
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  50% {
+    transform: scaleY(1.5);
+  }
+}
+
+.wave-bar {
+  height: var(--wave-height);
+  animation: wave var(--wave-duration) ease-in-out infinite;
+  animation-delay: var(--wave-delay);
+}
+
+.wave-bar:nth-child(1) {
+  --wave-height: 25.5%;
+  --wave-duration: 1.27s;
+  --wave-delay: 0.00s;
+}
+
+.wave-bar:nth-child(2) {
+  --wave-height: 25.3%;
+  --wave-duration: 2.77s;
+  --wave-delay: 0.05s;
+}
+
+.wave-bar:nth-child(3) {
+  --wave-height: 21.5%;
+  --wave-duration: 1.94s;
+  --wave-delay: 0.10s;
+}
+
+.wave-bar:nth-child(4) {
+  --wave-height: 29.6%;
+  --wave-duration: 2.02s;
+  --wave-delay: 0.15s;
+}
+
+.wave-bar:nth-child(5) {
+  --wave-height: 19.1%;
+  --wave-duration: 2.27s;
+  --wave-delay: 0.20s;
+}
+
+.wave-bar:nth-child(6) {
+  --wave-height: 37.8%;
+  --wave-duration: 2.57s;
+  --wave-delay: 0.25s;
+}
+
+.wave-bar:nth-child(7) {
+  --wave-height: 27.0%;
+  --wave-duration: 2.43s;
+  --wave-delay: 0.30s;
+}
+
+.wave-bar:nth-child(8) {
+  --wave-height: 13.0%;
+  --wave-duration: 1.08s;
+  --wave-delay: 0.35s;
+}
+
+.wave-bar:nth-child(9) {
+  --wave-height: 31.9%;
+  --wave-duration: 2.15s;
+  --wave-delay: 0.40s;
+}
+
+.wave-bar:nth-child(10) {
+  --wave-height: 29.0%;
+  --wave-duration: 2.50s;
+  --wave-delay: 0.45s;
+}
+
+.wave-bar:nth-child(11) {
+  --wave-height: 16.6%;
+  --wave-duration: 1.71s;
+  --wave-delay: 0.50s;
+}
+
+.wave-bar:nth-child(12) {
+  --wave-height: 33.5%;
+  --wave-duration: 1.48s;
+  --wave-delay: 0.55s;
+}
+
+.wave-bar:nth-child(13) {
+  --wave-height: 17.8%;
+  --wave-duration: 2.29s;
+  --wave-delay: 0.60s;
+}
+
+.wave-bar:nth-child(14) {
+  --wave-height: 34.9%;
+  --wave-duration: 2.04s;
+  --wave-delay: 0.65s;
+}
+
+.wave-bar:nth-child(15) {
+  --wave-height: 12.5%;
+  --wave-duration: 2.40s;
+  --wave-delay: 0.70s;
+}
+
+.wave-bar:nth-child(16) {
+  --wave-height: 24.9%;
+  --wave-duration: 1.53s;
+  --wave-delay: 0.75s;
+}
+
+.wave-bar:nth-child(17) {
+  --wave-height: 27.9%;
+  --wave-duration: 2.35s;
+  --wave-delay: 0.80s;
+}
+
+.wave-bar:nth-child(18) {
+  --wave-height: 18.9%;
+  --wave-duration: 1.16s;
+  --wave-delay: 0.85s;
+}
+
+.wave-bar:nth-child(19) {
+  --wave-height: 31.8%;
+  --wave-duration: 2.13s;
+  --wave-delay: 0.90s;
+}
+
+.wave-bar:nth-child(20) {
+  --wave-height: 20.0%;
+  --wave-duration: 1.96s;
+  --wave-delay: 0.95s;
+}
+
+.wave-bar:nth-child(21) {
+  --wave-height: 21.5%;
+  --wave-duration: 2.44s;
+  --wave-delay: 1.00s;
+}
+
+.wave-bar:nth-child(22) {
+  --wave-height: 38.0%;
+  --wave-duration: 2.94s;
+  --wave-delay: 1.05s;
+}
+
+.wave-bar:nth-child(23) {
+  --wave-height: 29.6%;
+  --wave-duration: 1.36s;
+  --wave-delay: 1.10s;
+}
+
+.wave-bar:nth-child(24) {
+  --wave-height: 19.1%;
+  --wave-duration: 2.80s;
+  --wave-delay: 1.15s;
+}
+
+.wave-bar:nth-child(25) {
+  --wave-height: 30.9%;
+  --wave-duration: 1.51s;
+  --wave-delay: 1.20s;
+}
+
+.wave-bar:nth-child(26) {
+  --wave-height: 37.9%;
+  --wave-duration: 2.93s;
+  --wave-delay: 1.25s;
+}
+
+.wave-bar:nth-child(27) {
+  --wave-height: 25.5%;
+  --wave-duration: 2.79s;
+  --wave-delay: 1.30s;
+}
+
+.wave-bar:nth-child(28) {
+  --wave-height: 35.5%;
+  --wave-duration: 1.74s;
+  --wave-delay: 1.35s;
+}
+
+.wave-bar:nth-child(29) {
+  --wave-height: 13.4%;
+  --wave-duration: 1.80s;
+  --wave-delay: 1.40s;
+}
+
+.wave-bar:nth-child(30) {
+  --wave-height: 22.3%;
+  --wave-duration: 2.75s;
+  --wave-delay: 1.45s;
+}
+
+.wave-bar:nth-child(31) {
+  --wave-height: 14.3%;
+  --wave-duration: 2.10s;
+  --wave-delay: 1.50s;
+}
+
+.wave-bar:nth-child(32) {
+  --wave-height: 17.9%;
+  --wave-duration: 2.94s;
+  --wave-delay: 1.55s;
+}
+
+.wave-bar:nth-child(33) {
+  --wave-height: 13.1%;
+  --wave-duration: 1.46s;
+  --wave-delay: 1.60s;
+}
+
+.wave-bar:nth-child(34) {
+  --wave-height: 38.1%;
+  --wave-duration: 2.93s;
+  --wave-delay: 1.65s;
+}
+
+.wave-bar:nth-child(35) {
+  --wave-height: 34.7%;
+  --wave-duration: 2.29s;
+  --wave-delay: 1.70s;
+}
+
+.wave-bar:nth-child(36) {
+  --wave-height: 12.4%;
+  --wave-duration: 1.53s;
+  --wave-delay: 1.75s;
+}
+
+.wave-bar:nth-child(37) {
+  --wave-height: 10.7%;
+  --wave-duration: 2.04s;
+  --wave-delay: 1.80s;
+}
+
+.wave-bar:nth-child(38) {
+  --wave-height: 19.4%;
+  --wave-duration: 2.82s;
+  --wave-delay: 1.85s;
+}
+
+.wave-bar:nth-child(39) {
+  --wave-height: 15.9%;
+  --wave-duration: 2.39s;
+  --wave-delay: 1.90s;
+}
+
+.wave-bar:nth-child(40) {
+  --wave-height: 34.2%;
+  --wave-duration: 1.96s;
+  --wave-delay: 1.95s;
+}
+
+.wave-bar:nth-child(41) {
+  --wave-height: 33.4%;
+  --wave-duration: 1.57s;
+  --wave-delay: 2.00s;
+}
+
+.wave-bar:nth-child(42) {
+  --wave-height: 10.7%;
+  --wave-duration: 2.63s;
+  --wave-delay: 2.05s;
+}
+
+.wave-bar:nth-child(43) {
+  --wave-height: 16.3%;
+  --wave-duration: 2.27s;
+  --wave-delay: 2.10s;
+}
+
+.wave-bar:nth-child(44) {
+  --wave-height: 10.4%;
+  --wave-duration: 1.72s;
+  --wave-delay: 2.15s;
+}
+
+.wave-bar:nth-child(45) {
+  --wave-height: 36.0%;
+  --wave-duration: 1.04s;
+  --wave-delay: 2.20s;
+}
+
+.wave-bar:nth-child(46) {
+  --wave-height: 14.9%;
+  --wave-duration: 2.19s;
+  --wave-delay: 2.25s;
+}
+
+.wave-bar:nth-child(47) {
+  --wave-height: 37.3%;
+  --wave-duration: 2.34s;
+  --wave-delay: 2.30s;
+}
+
+.wave-bar:nth-child(48) {
+  --wave-height: 36.9%;
+  --wave-duration: 1.92s;
+  --wave-delay: 2.35s;
+}
+
+.wave-bar:nth-child(49) {
+  --wave-height: 34.2%;
+  --wave-duration: 1.26s;
+  --wave-delay: 2.40s;
+}
+
+.wave-bar:nth-child(50) {
+  --wave-height: 13.1%;
+  --wave-duration: 1.95s;
+  --wave-delay: 2.45s;
+}
+
+/* Custom Glass Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}

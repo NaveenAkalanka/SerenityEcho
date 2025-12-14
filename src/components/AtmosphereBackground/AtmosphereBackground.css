@@ -1,0 +1,162 @@
+/* Base Container */
+.atmosphere-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* --- Rain Effect --- */
+.rain-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    transition: transform 2s ease-in-out;
+    /* Smooth transition for wind */
+}
+
+.rain-drop {
+    position: absolute;
+    top: -20px;
+    width: 2px;
+    height: 15px;
+    background: linear-gradient(to bottom, rgba(100, 200, 255, 0.6), rgba(100, 200, 255, 0));
+    animation: rain-fall linear infinite;
+}
+
+@keyframes rain-fall {
+    to {
+        transform: translateY(110vh);
+    }
+}
+
+/* --- Wind Effect (Slanted Rain + Particles) --- */
+.wind-active .rain-container {
+    transform: skewX(-15deg) translateX(-20px);
+}
+
+.wind-particle {
+    position: absolute;
+    height: 1px;
+    width: 50px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: wind-gust 2s linear infinite;
+    opacity: 0;
+}
+
+@keyframes wind-gust {
+    0% {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 0.3;
+    }
+
+    80% {
+        opacity: 0.3;
+    }
+
+    100% {
+        transform: translateX(calc(100vw + 100px));
+        opacity: 0;
+    }
+}
+
+/* --- Thunder Effect --- */
+.thunder-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(255, 255, 255, 0.15);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10;
+    transition: opacity 0.1s ease-out;
+}
+
+.thunder-active {
+    animation: thunder-flash 0.8s ease-out;
+}
+
+@keyframes thunder-flash {
+    0% {
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.2;
+    }
+
+    20% {
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 0.15;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/* --- Bird Effect --- */
+.bird-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.bird {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    fill: rgba(0, 0, 0, 0.4);
+    opacity: 0.6;
+    animation: fly-across 15s linear forwards;
+}
+
+/* Simple wing flap animation using scale/skew */
+.bird svg {
+    animation: wing-flap 0.4s ease-in-out infinite alternate;
+}
+
+@keyframes fly-across {
+    0% {
+        transform: translate(-50px, 10vh) scale(0.8);
+    }
+
+    25% {
+        transform: translate(30vw, 15vh) scale(1);
+    }
+
+    50% {
+        transform: translate(60vw, 5vh) scale(0.9);
+    }
+
+    75% {
+        transform: translate(80vw, 20vh) scale(1.1);
+    }
+
+    100% {
+        transform: translate(110vw, 10vh) scale(0.8);
+    }
+}
+
+@keyframes wing-flap {
+    0% {
+        transform: scaleY(1);
+    }
+
+    100% {
+        transform: scaleY(0.6);
+    }
+}
