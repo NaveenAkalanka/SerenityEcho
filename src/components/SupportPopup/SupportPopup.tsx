@@ -5,23 +5,16 @@ const SupportPopup: React.FC = () => {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
-        // Check if user has already dismissed the popup
-        const isDismissed = localStorage.getItem('sonixa_support_dismissed');
+        // Show popup after a delay (e.g., 5 seconds)
+        const timer = setTimeout(() => {
+            setIsVisible(true);
+        }, 5000);
 
-        if (!isDismissed) {
-            // Show popup after a delay (e.g., 60 seconds) to not annoy immediately
-            const timer = setTimeout(() => {
-                setIsVisible(true);
-            }, 60000); // 1 minute delay
-
-            return () => clearTimeout(timer);
-        }
+        return () => clearTimeout(timer);
     }, []);
 
     const handleDismiss = () => {
         setIsVisible(false);
-        // Save dismissal to localStorage (expires conceptually, but for now permanent)
-        localStorage.setItem('sonixa_support_dismissed', 'true');
     };
 
     if (!isVisible) return null;
