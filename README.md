@@ -18,6 +18,8 @@
   [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
   [![Vite](https://img.shields.io/badge/Vite-5.x-purple.svg)](https://vitejs.dev/)
   [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.x-38bdf8.svg)](https://tailwindcss.com/)
+  <br />
+  <a href="https://www.buymeacoffee.com/naveenakalanka" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
 </div>
 
@@ -96,5 +98,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <div align="center">
   <p class="text-sm text-gray-500">
     Designed & Developed with ❤️ by <a href="https://github.com/NaveenAkalanka">Naveen Akalanka</a>
+    <br />
+    <a href="https://www.buymeacoffee.com/naveenakalanka">Support the Project ☕</a>
   </p>
 </div>
