@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { createPortal } from 'react-dom';
-import { List, X, EnvelopeSimple } from '@phosphor-icons/react';
+import { EnvelopeSimple } from '@phosphor-icons/react';
 import FeedbackModal from '../FeedbackModal/FeedbackModal';
 
 const Header: React.FC = () => {
