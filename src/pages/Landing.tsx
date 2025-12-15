@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Lenis from 'lenis';
+import { Link } from 'react-router-dom';
 import { Faders, Waveform, FloppyDisk } from '@phosphor-icons/react';
 import OrganicBackground from '../components/OrganicBackground/OrganicBackground';
 
@@ -112,10 +113,10 @@ const Landing: React.FC = () => {
                                 </p>
 
                                 <div className={`flex gap-6 justify-center transition-all duration-[1200ms] ease-out delay-300 ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-                                    <a href="/mixer" className="group relative px-8 py-3 md:px-10 md:py-4 bg-gradient-to-r from-accent to-accent-hover text-navy-dark font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50 inline-block">
+                                    <Link to="/mixer" className="group relative px-8 py-3 md:px-10 md:py-4 bg-gradient-to-r from-accent to-accent-hover text-navy-dark font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50 inline-block">
                                         <span className="relative z-10 text-sm md:text-base">Start Mixing</span>
                                         <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
