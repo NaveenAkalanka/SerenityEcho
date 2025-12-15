@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { createPortal } from 'react-dom';
+import { List, X, EnvelopeSimple } from '@phosphor-icons/react';
 
 const Header: React.FC = () => {
     const [scrolled, setScrolled] = useState(false);
@@ -125,6 +126,15 @@ const Header: React.FC = () => {
                         >
                             Sound Library
                         </Link>
+
+                        <a
+                            href="mailto:naveenakalanka70@gmail.com?subject=SerenityEcho Feedback"
+                            className="text-white/70 hover:text-accent transition-colors flex items-center gap-2"
+                        >
+                            <EnvelopeSimple size={20} />
+                            <span className="hidden lg:inline">Feedback</span>
+                        </a>
+
                         <Link
                             to="/about"
                             className={`
@@ -175,6 +185,14 @@ const Header: React.FC = () => {
                         >
                             Sound Library
                         </Link>
+                        <a
+                            href="mailto:naveenakalanka70@gmail.com?subject=SerenityEcho Feedback"
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="text-2xl font-light tracking-wide text-purple-200 flex items-center gap-2"
+                        >
+                            <EnvelopeSimple size={24} />
+                            Feedback
+                        </a>
                         <Link
                             to="/about"
                             onClick={() => setMobileMenuOpen(false)}

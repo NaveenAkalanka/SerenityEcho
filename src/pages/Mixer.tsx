@@ -9,6 +9,7 @@ import AtmosphereBackground from '../components/AtmosphereBackground/AtmosphereB
 import UploadSoundModal from '../components/UploadSoundModal';
 import SavePresetModal from '../components/SavePresetModal/SavePresetModal';
 import ConfirmationModal from '../components/ConfirmationModal/ConfirmationModal';
+import SupportPopup from '../components/SupportPopup/SupportPopup';
 import { useToast } from '../components/Toast/ToastContext';
 import { useAudioEngine } from '../hooks/useAudioEngine';
 import { useLocalPresets } from '../hooks/useLocalPresets';
@@ -270,6 +271,7 @@ const Mixer: React.FC = () => {
                 confirmText="Yes, Clear All"
                 isDanger
             />
+            <SupportPopup />
         </AtmosphereBackground>
     );
 };

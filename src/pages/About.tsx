@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Coffee } from '@phosphor-icons/react';
 import OrganicBackground from '../components/OrganicBackground/OrganicBackground';
 
 const About: React.FC = () => {
@@ -104,6 +105,25 @@ const About: React.FC = () => {
                         </p>
                     </div>
 
+                    {/* Section 4: Support */}
+                    <div className="bg-gradient-to-br from-yellow-400/10 to-orange-500/10 backdrop-blur-md border border-yellow-400/20 rounded-3xl p-8 md:p-12 text-center max-w-4xl mx-auto">
+                        <div className="w-16 h-16 bg-yellow-400/20 rounded-full flex items-center justify-center text-yellow-400 mx-auto mb-6">
+                            <Coffee size={32} weight="fill" />
+                        </div>
+                        <h2 className="text-3xl text-white mb-4">Support the Project</h2>
+                        <p className="text-purple-100 mb-8 max-w-2xl mx-auto">
+                            SerenityEcho is and always will be free. If you enjoy the peace it brings, consider buying me a coffee to help cover server costs and keep the project alive.
+                        </p>
+                        <a
+                            href="https://buymeacoffee.com/naveenakalanka"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-3 px-8 py-4 bg-[#FFDD00] hover:bg-[#FFDD00]/90 text-black font-bold rounded-xl transition-all hover:scale-105 shadow-lg shadow-yellow-400/20"
+                        >
+                            <Coffee size={24} weight="fill" />
+                            Buy me a coffee
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
