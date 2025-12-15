@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Lenis from 'lenis';
+import { Faders, Waveform, FloppyDisk } from '@phosphor-icons/react';
 import OrganicBackground from '../components/OrganicBackground/OrganicBackground';
 
 const Landing: React.FC = () => {
@@ -16,37 +17,13 @@ const Landing: React.FC = () => {
         if (containerRef.current) {
             const lenis = new Lenis({
                 wrapper: containerRef.current,
-                duration: 1.5, // Slower duration for "bit slow" feel
-                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Standard exponential easing
-                wheelMultiplier: 1, // Sensitivity
+                duration: 1.2, // Faster, snappier feel
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                wheelMultiplier: 1.2, // slightly more sensitive
                 touchMultiplier: 2,
             });
 
-            // Custom Snapping Logic
-            let snapTimeout: ReturnType<typeof setTimeout>;
-
-            const onScroll = () => {
-                clearTimeout(snapTimeout);
-                // Wait for user to stop scrolling
-                snapTimeout = setTimeout(() => {
-                    const vh = window.innerHeight;
-                    const currentScroll = lenis.scroll;
-                    const targetIndex = Math.round(currentScroll / vh);
-                    const targetScroll = targetIndex * vh;
-
-                    // Only snap if we are not already there (with small threshold)
-                    if (Math.abs(currentScroll - targetScroll) > 2) {
-                        lenis.scrollTo(targetScroll, {
-                            duration: 1.5, // Match the requested slow transition
-                            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                            lock: true, // Prevent fighting during snap
-                        });
-                    }
-                }, 150); // 150ms delay after scroll stops
-            };
-
-            lenis.on('scroll', onScroll);
-
+            // Standard raf loop
             const raf = (time: number) => {
                 lenis.raf(time);
                 requestAnimationFrame(raf);
@@ -55,7 +32,6 @@ const Landing: React.FC = () => {
             requestAnimationFrame(raf);
 
             return () => {
-                clearTimeout(snapTimeout);
                 lenis.destroy();
             };
         }
@@ -119,23 +95,23 @@ const Landing: React.FC = () => {
                         {/* Hero content */}
                         <div className="relative z-10 text-center px-4 md:px-8 max-w-4xl">
                             <div className="inline-block mb-2 bg-purple-card/80 backdrop-blur-md px-6 py-2 md:px-8 rounded-2xl">
-                                <div className={`w-40 h-40 md:w-64 md:h-64 transition-all duration-[2000ms] ease-in-out ${loaded ? 'scale-100 opacity-100' : 'scale-50 opacity-0'}`}>
-                                    <img src="/SerenityEcho.svg" alt="SerenityEcho Logo" className="w-full h-full" />
+                                <div className={`w-40 h-40 md:w-64 md:h-64 transition-all duration-[1200ms] ease-out ${loaded ? 'scale-100 opacity-100' : 'scale-75 opacity-0'}`}>
+                                    <img src="/SerenityEcho.svg" alt="SerenityEcho Logo" className="w-full h-full" loading="lazy" decoding="async" />
                                 </div>
                             </div>
 
                             <div className="bg-purple-card/60 backdrop-blur-sm px-6 py-2 md:px-12 rounded-3xl">
-                                <h1 className={`text-4xl md:text-7xl mb-4 md:mb-6 bg-gradient-to-r from-purple-200 via-white to-purple-200 bg-clip-text text-transparent transition-all duration-[2000ms] ease-in-out delay-200 ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+                                <h1 className={`text-4xl md:text-7xl mb-4 md:mb-6 bg-gradient-to-r from-purple-200 via-white to-purple-200 bg-clip-text text-transparent transition-all duration-[1200ms] ease-out delay-100 ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
                                     SerenityEcho
                                 </h1>
 
-                                <p className={`text-lg md:text-2xl text-purple-100 mb-6 md:mb-10 font-light leading-relaxed transition-all duration-[2000ms] ease-in-out delay-300 ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+                                <p className={`text-lg md:text-2xl text-purple-100 mb-6 md:mb-10 font-light leading-relaxed transition-all duration-[1200ms] ease-out delay-200 ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
                                     Immerse yourself in calming soundscapes
                                     <br className="hidden md:block" />
                                     designed for focus, relaxation, and peace
                                 </p>
 
-                                <div className={`flex gap-6 justify-center transition-all duration-[2000ms] ease-in-out delay-500 ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+                                <div className={`flex gap-6 justify-center transition-all duration-[1200ms] ease-out delay-300 ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
                                     <a href="/mixer" className="group relative px-8 py-3 md:px-10 md:py-4 bg-gradient-to-r from-accent to-accent-hover text-navy-dark font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50 inline-block">
                                         <span className="relative z-10 text-sm md:text-base">Start Mixing</span>
                                         <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
@@ -146,7 +122,7 @@ const Landing: React.FC = () => {
                     </div>
 
                     {/* Scroll Indicator */}
-                    <div className={`absolute bottom-8 left-1/2 -translate-x-1/2 text-white/30 animate-bounce-slow pointer-events-none transition-opacity duration-1000 delay-1000 ${loaded ? 'opacity-100' : 'opacity-0'}`}>
+                    <div className={`absolute bottom-8 left-1/2 -translate-x-1/2 text-white/30 animate-bounce-slow pointer-events-none transition-opacity duration-1000 delay-700 ${loaded ? 'opacity-100' : 'opacity-0'}`}>
                         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 9l-7 7-7-7" />
                         </svg>
@@ -288,18 +264,18 @@ const Landing: React.FC = () => {
                     <div className="relative z-10 max-w-6xl w-full">
                         <h2 className="text-3xl md:text-5xl text-center mb-8 md:mb-16 bg-gradient-to-r from-purple-200 via-white to-purple-200 bg-clip-text text-transparent">Features</h2>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                            <div className="bg-purple-card/60 backdrop-blur-md p-8 rounded-2xl border border-white/5">
-                                <div className="text-5xl mb-4">🎵</div>
+                            <div className="bg-purple-card/60 backdrop-blur-md p-8 rounded-2xl border border-white/5 flex flex-col items-center text-center group hover:bg-purple-card/80 transition-all duration-300">
+                                <Faders size={48} className="text-accent mb-4 group-hover:scale-110 transition-transform duration-300" weight="light" />
                                 <h3 className="text-2xl mb-3 text-white">Mix Sounds</h3>
                                 <p className="text-purple-100">Blend multiple soundscapes</p>
                             </div>
-                            <div className="bg-purple-card/60 backdrop-blur-md p-8 rounded-2xl border border-white/5">
-                                <div className="text-5xl mb-4">⏱️</div>
-                                <h3 className="text-2xl mb-3 text-white">Set Timers</h3>
-                                <p className="text-purple-100">Auto-stop after duration</p>
+                            <div className="bg-purple-card/60 backdrop-blur-md p-8 rounded-2xl border border-white/5 flex flex-col items-center text-center group hover:bg-purple-card/80 transition-all duration-300">
+                                <Waveform size={48} className="text-accent mb-4 group-hover:scale-110 transition-transform duration-300" weight="light" />
+                                <h3 className="text-2xl mb-3 text-white">Custom Sounds</h3>
+                                <p className="text-purple-100">Upload your own tracks</p>
                             </div>
-                            <div className="bg-purple-card/60 backdrop-blur-md p-8 rounded-2xl border border-white/5">
-                                <div className="text-5xl mb-4">💾</div>
+                            <div className="bg-purple-card/60 backdrop-blur-md p-8 rounded-2xl border border-white/5 flex flex-col items-center text-center group hover:bg-purple-card/80 transition-all duration-300">
+                                <FloppyDisk size={48} className="text-accent mb-4 group-hover:scale-110 transition-transform duration-300" weight="light" />
                                 <h3 className="text-2xl mb-3 text-white">Save Presets</h3>
                                 <p className="text-purple-100">Remember your favorites</p>
                             </div>
