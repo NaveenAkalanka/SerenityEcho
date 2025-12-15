@@ -13,7 +13,7 @@ import SupportPopup from '../components/SupportPopup/SupportPopup';
 import { useToast } from '../components/Toast/ToastContext';
 import { useAudioEngine } from '../hooks/useAudioEngine';
 import { useLocalPresets } from '../hooks/useLocalPresets';
-import { SOUND_CATEGORIES } from '../data/soundLibrary';
+import { SOUND_CATEGORIES, SOUND_LIBRARY } from '../data/soundLibrary';
 import { getSounds, getCategories, initDB, saveSound } from '../services/audioStorage';
 import type { Preset } from '../types/Preset';
 import type { SoundTrack } from '../types/SoundTrack';
