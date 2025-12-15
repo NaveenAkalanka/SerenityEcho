@@ -5,6 +5,7 @@ import { getPresets, savePreset as dbSavePreset, deletePreset as dbDeletePreset,
 
 export const useLocalPresets = () => {
     const [presets, setPresets] = useState<Preset[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     // Load presets from IndexedDB on mount
     useEffect(() => {
@@ -13,12 +14,11 @@ export const useLocalPresets = () => {
                 await initDB();
                 const storedPresets = await getPresets();
                 console.log('useLocalPresets: Loaded from DB:', storedPresets);
-                // Sort by creation time if needed, though DB usually returns in key order or insert order
                 setPresets(storedPresets);
             } catch (error) {
                 console.error('Error loading presets from DB:', error);
             } finally {
-                // Done
+                setIsLoading(false);
             }
         };
         loadPresets();
@@ -69,5 +69,6 @@ export const useLocalPresets = () => {
         savePreset,
         deletePreset,
         loadPreset,
+        isLoading
     };
 };

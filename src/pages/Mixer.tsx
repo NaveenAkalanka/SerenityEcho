@@ -45,7 +45,16 @@ const Mixer: React.FC = () => {
         clearAllLayers
     } = useAudioEngine(customSounds);
 
-    const { presets, savePreset, deletePreset } = useLocalPresets();
+    const { presets, savePreset, deletePreset, isLoading: arePresetsLoading } = useLocalPresets();
+
+    // Default Zen Preset (Rain, Water, Wind, Bells, Crickets)
+    const DEFAULT_ZEN_PRESET = [
+        'gentle-rain',
+        'flowing-stream',
+        'soft-breeze',
+        'meditation-bell',
+        'cricket-chorus'
+    ];
 
     // Define handleLoadPreset early so it can be used in useEffect
     const handleLoadPreset = (preset: Preset, showAlert = true) => {
@@ -77,17 +86,47 @@ const Mixer: React.FC = () => {
         loadCustomData();
     }, []);
 
-    // Auto-load most recent preset on mount (only once)
+    // Auto-load most recent preset OR Default Zen preset on mount
     useEffect(() => {
-        console.log('Auto-load check:', { presetsCount: presets.length, hasLoadedPreset });
-        if (presets.length > 0 && !hasLoadedPreset) {
-            // Get the most recent preset (last in array)
+        // Wait for presets to finish loading
+        if (arePresetsLoading || hasLoadedPreset) return;
+
+        console.log('Auto-load check:', { presetsCount: presets.length });
+
+        if (presets.length > 0) {
+            // Priority 1: User's most recent preset
             const mostRecentPreset = presets[presets.length - 1];
-            console.log('Auto-loading preset:', mostRecentPreset.name);
-            handleLoadPreset(mostRecentPreset, false); // Don't show alert on auto-load
+            console.log('Auto-loading user preset:', mostRecentPreset.name);
+            handleLoadPreset(mostRecentPreset, false);
             setHasLoadedPreset(true);
+        } else if (layers.length === 0) {
+            // Priority 2: Default Zen Preset (only if mixer is empty)
+            console.log('No user presets found. Loading default Zen preset.');
+
+            // Construct Zen Layers
+            const zenLayers = DEFAULT_ZEN_PRESET.map((soundId, index) => {
+                const sound = SOUND_LIBRARY.find(s => s.id === soundId);
+                // Skip if sound not found
+                if (!sound) return null;
+
+                return {
+                    id: `zen-layer-${index}-${Date.now()}`,
+                    name: sound.name,
+                    selectedCategory: sound.category,
+                    selectedSoundId: soundId,
+                    volume: 50, // Default volume 50%
+                    isPlaying: false,
+                    isMuted: false,
+                    loop: true
+                };
+            }).filter((l): l is NonNullable<typeof l> => l !== null);
+
+            if (zenLayers.length > 0) {
+                loadLayers(zenLayers as any); // Cast to any if MixerLayer type mismatch with strict props but here it should be fine logic-wise
+                setHasLoadedPreset(true);
+            }
         }
-    }, [presets.length, hasLoadedPreset]);
+    }, [arePresetsLoading, presets.length, hasLoadedPreset, layers.length, loadLayers]);
 
     const sensors = useSensors(
         useSensor(PointerSensor),
