@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { createPortal } from 'react-dom';
-import { EnvelopeSimple } from '@phosphor-icons/react';
 import FeedbackModal from '../FeedbackModal/FeedbackModal';
 
 const Header: React.FC = () => {
@@ -132,10 +131,14 @@ const Header: React.FC = () => {
 
                             <button
                                 onClick={() => setFeedbackModalOpen(true)}
-                                className="text-white/70 hover:text-accent transition-colors flex items-center gap-2"
+                                className={`
+                                    relative px-4 py-2 rounded-lg
+                                    text-purple-100 tracking-wide
+                                    transition-all duration-300
+                                    hover:text-white hover:bg-white/5
+                                `}
                             >
-                                <EnvelopeSimple size={20} />
-                                <span className="hidden lg:inline">Feedback</span>
+                                Feedback
                             </button>
 
                             <Link
@@ -195,7 +198,6 @@ const Header: React.FC = () => {
                                 }}
                                 className="text-2xl font-light tracking-wide text-purple-200 flex items-center gap-2"
                             >
-                                <EnvelopeSimple size={24} />
                                 Feedback
                             </button>
                             <Link
