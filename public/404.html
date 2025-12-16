@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - SerenityEcho</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            dark: '#0a0b1e',
+                            card: '#161832',
+                        },
+                        accent: {
+                            DEFAULT: '#b19cd9',
+                            hover: '#c4b5e3',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-navy-dark text-white min-h-screen flex items-center justify-center relative overflow-hidden">
+
+    <!-- Background Decor -->
+    <div class="absolute inset-0 z-0 opacity-30">
+        <div class="absolute top-0 left-0 w-96 h-96 bg-purple-900/40 rounded-full blur-[128px] animate-pulse-slow">
+        </div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-blue-900/40 rounded-full blur-[128px] animate-pulse-slow"
+            style="animation-delay: 2s;"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 text-center p-8 max-w-md">
+        <h1 class="text-9xl font-bold text-accent/20 mb-4 select-none">404</h1>
+        <h2 class="text-3xl font-semibold mb-4 text-accent">Lost in the Silence?</h2>
+        <p class="text-gray-300 mb-8 text-lg">
+            The page you are looking for has drifted away like a cloud. Let's get you back to your sanctuary.
+        </p>
+
+        <a href="/"
+            class="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-accent to-accent-hover text-navy-dark font-bold rounded-xl transition-transform hover:scale-105 shadow-lg shadow-accent/20">
+            <span>&larr;</span> Return Home
+        </a>
+    </div>
+
+</body>
+
+</html>

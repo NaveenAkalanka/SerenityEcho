@@ -103,7 +103,7 @@ const Landing: React.FC = () => {
 
                             <div className="bg-purple-card/60 backdrop-blur-sm px-6 py-2 md:px-12 rounded-3xl">
                                 <h1 className={`text-4xl md:text-7xl mb-4 md:mb-6 bg-gradient-to-r from-purple-200 via-white to-purple-200 bg-clip-text text-transparent transition-all duration-[1200ms] ease-out delay-100 ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-                                    SerenityEcho
+                                    SerenityEcho - Ambient Sound Mixer
                                 </h1>
 
                                 <p className={`text-lg md:text-2xl text-purple-100 mb-6 md:mb-10 font-light leading-relaxed transition-all duration-[1200ms] ease-out delay-200 ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
