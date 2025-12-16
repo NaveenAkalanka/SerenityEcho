@@ -136,6 +136,7 @@ const Header: React.FC = () => {
                                     text-purple-100 tracking-wide
                                     transition-all duration-300
                                     hover:text-white hover:bg-white/5
+                                    cursor-pointer
                                 `}
                             >
                                 Feedback
